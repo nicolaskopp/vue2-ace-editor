@@ -12,11 +12,10 @@ module.exports = {
     },
     props:{
         value:String,
-        lang:true,
-        theme:String,
         height:true,
         width:true,
-        options:Object
+        options:Object,
+        useEmmet:false,
     },
     data: function () {
         return {
@@ -39,12 +38,6 @@ module.exports = {
                 this.contentBackup = val;
             }
         },
-        theme:function (newTheme) {
-            this.editor.setTheme('ace/theme/'+newTheme);
-        },
-        lang:function (newLang) {
-            this.editor.getSession().setMode(typeof newLang === 'string' ? ( 'ace/mode/' + newLang ) : newLang);
-        },
         options:function(newOption){
             this.editor.setOptions(newOption);
         },
@@ -65,19 +58,15 @@ module.exports = {
     },
     mounted: function () {
         var vm = this;
-        var lang = this.lang||'text';
-        var theme = this.theme||'chrome';
 
-        require('brace/ext/emmet');
+        if(this.useEmmet) require('brace/ext/emmet');
 
         var editor = vm.editor = ace.edit(this.$el);
         editor.$blockScrolling = Infinity;
 
         this.$emit('init',editor);
         
-        //editor.setOption("enableEmmet", true);
-        editor.getSession().setMode(typeof lang === 'string' ? ( 'ace/mode/' + lang ) : lang);
-        editor.setTheme('ace/theme/'+theme);
+        if(this.useEmmet) editor.setOption("enableEmmet", true);
         if(this.value)
             editor.setValue(this.value,1);
         this.contentBackup = this.value;
