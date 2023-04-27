@@ -28,7 +28,7 @@ require(['emmet/emmet'],function (data) { // this is huge. so require it async i
 1. Install
 
     ```
-    npm install --save-dev vue2-ace-editor
+    yarn add nicolaskopp/vue2-ace-editor
     ```
     
 2. Require it in `components` of Vue options
@@ -69,8 +69,6 @@ require(['emmet/emmet'],function (data) { // this is huge. so require it async i
     ```
     
     prop `v-model`  is required
-    
-    prop `lang` and `theme` is same as [ace-editor's doc](https://github.com/ajaxorg/ace)
     
     prop `height` and `width` could be one of these:  `200`, `200px`, `50%`
     
